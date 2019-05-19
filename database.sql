@@ -24,3 +24,20 @@ VALUES
 ('Inspirational'),
 ('Frantic'),
 ('Vertigo');
+
+CREATE TABLE "images_tags"
+(
+    id SERIAL PRIMARY KEY,
+    images_id INT REFERENCES "images",
+    tags_id INT REFERENCES "tags"
+);
+
+--SAMPLE DATA
+INSERT INTO "images_tags"
+    ("images_id", "tags_id")
+VALUES
+    (1, 4),
+    (2, 3),
+    (3, 5),
+    (4, 2),
+    (5, 1);

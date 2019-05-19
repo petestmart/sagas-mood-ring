@@ -6,11 +6,11 @@ class DisplayTags extends Component {
         return(
             <div className="tagsApp">
                 <select>
-                    <option>Hey There</option>
+                    <option disabled value="0">Select Tag</option>
                 {/* <select value={this.state.tags_id} onChange={this.handleTagChange}> */}
                     {this.props.tags.map(tag => {
                         return (
-                            <option value={tag.id}>{tag.name}</option>
+                            <option key={tag.id} value={tag.id}>{tag.name}</option>
                             
                         )
                     })}
