@@ -3,11 +3,13 @@ import './App.css';
 import {connect} from 'react-redux';
 import DisplayImage from '../DisplayImage/DisplayImage';
 // import ImageTitle from '../ImageTitle/ImageTitle'
+import DisplayTags from '../DisplayTags/DisplayTags'
 
 class App extends Component {
 
   componentDidMount() {
-    this.props.dispatch({ type: 'FETCH_IMAGE'})
+    this.props.dispatch({ type: 'FETCH_IMAGE'});
+    this.props.dispatch({ type: 'FETCH_TAGS'});
   }
 
   // Renders the entire app on the DOM
@@ -16,7 +18,7 @@ class App extends Component {
       <div className="App">
       <header><h1>The Mood Ring</h1></header>
         <DisplayImage />
-        <p>Tags Go Here</p>
+        <DisplayTags />
       </div>
     );
   }

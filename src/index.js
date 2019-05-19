@@ -13,22 +13,34 @@ import { takeEvery, put } from 'redux-saga/effects';
 import axios from 'axios';
 
 // ---------- SAGAS ---------- //
-// Create the rootSaga generator function
+// rootSaga generator function
 function* rootSaga() {
     yield takeEvery('FETCH_IMAGE', fetchImage)
+    yield takeEvery('FETCH_TAGS', fetchTags)
 } // end rootSaga
 
-// Fetches all images from the server
+// Fetches all image data from the server
 // Sends images to images reducer
 function* fetchImage() {
     try {
-    let imageResponse = yield axios.get('/image');
-    yield put({type: 'SET_IMAGES', payload: imageResponse.data })
+        let imageResponse = yield axios.get('/image');
+        yield put({ type: 'SET_IMAGES', payload: imageResponse.data })
     }
     catch (err) {
         console.log(err)
     }
 } // end Saga fetchImage
+
+// Fetches all tags data from the server
+function* fetchTags() {
+    try {
+        let tagsResponse = yield axios.get('/tags');
+        yield put({ type: 'SET_TAGS', payload: tagsResponse.data })
+    }
+    catch (err) {
+        console.log(err)
+    }
+}
 
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
@@ -68,6 +80,6 @@ const storeInstance = createStore(
 // Pass rootSaga into our sagaMiddleware
 sagaMiddleware.run(rootSaga);
 
-ReactDOM.render(<Provider store={storeInstance}><App /></Provider>, 
+ReactDOM.render(<Provider store={storeInstance}><App /></Provider>,
     document.getElementById('root'));
 registerServiceWorker();
