@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import {connect} from 'react-redux';
 import DisplayImage from '../DisplayImage/DisplayImage';
-import ImageTitle from '../ImageTitle/ImageTitle'
+// import ImageTitle from '../ImageTitle/ImageTitle'
 
 class App extends Component {
 
@@ -15,7 +15,6 @@ class App extends Component {
     return (
       <div className="App">
       <header><h1>The Mood Ring</h1></header>
-        <h2>Image Title</h2>
         <DisplayImage />
         <p>Tags Go Here</p>
       </div>

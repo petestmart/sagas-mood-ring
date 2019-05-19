@@ -1,6 +1,4 @@
-img {
-  width: 400px;
-}
+
 
 button {
   margin: 25px;
@@ -24,6 +22,14 @@ button {
 
 .App-intro {
   font-size: large;
+}
+
+.display {
+  width: 400px;
+}
+
+.loading {
+  width: 100px;
 }
 
 @keyframes App-logo-spin {

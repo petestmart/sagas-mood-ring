@@ -11,50 +11,102 @@ class DisplayImage extends Component {
         currentIndex: 0
     }
 
-    loopImage = () => {
-        if (this.state.currentIndex > this.props.redux.images.length - 1) {
-            this.setState({
-                currentIndex: 0
-            })
-        }
-        if (this.state.currentIndex < 0) {
-            this.setState({
-                currentIndex: this.props.redux.images.length - 1
-            })
-        }
-        this.renderImage();
-    }
+    // loopImage = () => {
+    //     if (this.state.currentIndex > this.props.redux.images.length - 1) {
+    //         this.setState({
+    //             currentIndex: 0
+    //         })
+    //     }
+    //     if (this.state.currentIndex < 0) {
+    //         this.setState({
+    //             currentIndex: this.props.redux.images.length - 1
+    //         })
+    //     }
+    //     // this.renderImage();
+    // }
 
     nextImage = () => {
         const newIndex = this.state.currentIndex + 1;
+        // if (this.state.currentIndex = this.props.redux.images.length - 1) {
+        //     this.setState({
+        //         currentIndex: 0
+        //     })
+        // }
+        // else {
         this.setState({
             currentIndex: newIndex
         })
+        // this.loopImage();
     }
 
     previousImage = () => {
         const newIndex = this.state.currentIndex - 1;
-        this.setState({
-            currentIndex: newIndex
-        })
+        // if (this.state.currentIndex = 0) {
+        //     this.setState({
+        //         currentIndex: this.props.redux.images.length - 1
+        //     })
+        // }
+        // else {
+            this.setState({
+                currentIndex: newIndex
+            })
+        // }
+        // this.loopImage();
     }
 
-    
+    conditionalDownButton = () => {
+        return (
+            (this.props.redux.images.length > 0) ?
+            this.renderDown() :
+            <div> </div>
+        )
+    }    
 
     conditionalImage = () => {
         return (
             (this.props.redux.images.length > 0) ?
                 this.renderImage() :
-                <div><img src="images/AbstractShapes.jpg" /></div>
+                <div><img src="images/loading.gif" className="loading"/></div>
         )
     }
 
-    renderImage = () => {
-        // this.loopImage()
+    conditionalTitle = () => {
         return (
-            <img src={this.props.redux.images[this.state.currentIndex].path} />
+            (this.props.redux.images.length > 0) ?
+            this.renderTitle() :
+            <div></div>
         )
     }
+
+    // renderDown = () => {
+    //     if (this.state.currentIndex = 0){
+    //         return (
+    //             <button>First Image</button>
+    //         )
+    //     }
+    //     else {
+    //         return (
+    //             <button
+    //                 onClick={() => this.previousImage()}
+    //             >Previous</button>
+    //         )
+    //     }
+    // }
+
+    renderImage = () => {
+        // this.loopImage();
+        return (
+            <img src={this.props.redux.images[this.state.currentIndex].path} className="display"/>
+        );
+    }
+
+    renderTitle = () => {
+        return (
+            this.props.redux.images[this.state.currentIndex].title
+        )
+    }
+
+
 
     render() {
         // const { images, currentImage } = this.state;
@@ -66,6 +118,7 @@ class DisplayImage extends Component {
         console.log("image 0 path is:", this.props.redux.images[0]);
         return (
             <div>
+                <h2>{this.conditionalTitle()}</h2>
                 <pre>{JSON.stringify(this.props.redux.images)}</pre>
                 <button
                     onClick={() => this.previousImage()}
