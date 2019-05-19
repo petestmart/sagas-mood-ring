@@ -12,8 +12,9 @@ import createSagaMiddleware from 'redux-saga';
 import { takeEvery, put } from 'redux-saga/effects';
 import axios from 'axios';
 
+
 // ---------- SAGAS ---------- //
-// rootSaga generator function
+// Watcher
 function* rootSaga() {
     yield takeEvery('FETCH_IMAGE', fetchImage)
     yield takeEvery('FETCH_TAGS', fetchTags)
@@ -45,6 +46,7 @@ function* fetchTags() {
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
 
+
 // ---------- REDUCERS ---------- //
 // Used to store images returned from the server
 const images = (state = [], action) => {
@@ -65,6 +67,7 @@ const tags = (state = [], action) => {
             return state;
     }
 } // end reducer tags
+
 
 // ---------- STORE ---------- //
 // Create one store that all components can use

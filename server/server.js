@@ -11,7 +11,7 @@ app.use(express.static('build'));
 
 /** ---------- ROUTES ---------- **/
 app.use('/image', imageRouter);
-app.use('tags', tagsRouter);
+app.use('/tags', tagsRouter);
 
 /** ---------- START SERVER ---------- **/
 app.listen(port, function () {

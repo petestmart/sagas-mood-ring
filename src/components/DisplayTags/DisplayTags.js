@@ -17,6 +17,7 @@ class DisplayTags extends Component {
 
                 </select>
             <button>Apply Tags</button>
+                <pre>{JSON.stringify(this.props.tags)}</pre>
             <p>Tags Go Here</p>
             </div>
         )

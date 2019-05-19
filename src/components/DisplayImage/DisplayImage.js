@@ -66,7 +66,7 @@ class DisplayImage extends Component {
         return (
             (this.props.redux.images.length > 0) ?
                 this.renderImage() :
-                <div><img src="images/loading.gif" className="loading"/></div>
+                <div><img src="images/loading.gif" className="loading" alt="loading"/></div>
         )
     }
 
@@ -96,7 +96,7 @@ class DisplayImage extends Component {
     renderImage = () => {
         // this.loopImage();
         return (
-            <img src={this.props.redux.images[this.state.currentIndex].path} className="display"/>
+            <img src={this.props.redux.images[this.state.currentIndex].path} className="display" alt={this.props.redux.images[this.state.currentIndex].name}/>
         );
     }
 
