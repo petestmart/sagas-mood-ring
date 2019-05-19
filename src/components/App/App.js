@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import {connect} from 'react-redux';
 import DisplayImage from '../DisplayImage/DisplayImage';
+import ImageTitle from '../ImageTitle/ImageTitle'
 
 class App extends Component {
 
