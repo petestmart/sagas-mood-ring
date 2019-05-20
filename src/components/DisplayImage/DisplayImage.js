@@ -8,8 +8,8 @@ class DisplayImage extends Component {
     state = {
         // images: this.props.redux.images,
         // currentImage: this.props.redux.images[0]
-        currentIndex: 0,
-        selectedTag: 0
+        images_id: 0,
+        tags_id: 0
     }
 
     componentDidMount() {
@@ -40,10 +40,18 @@ class DisplayImage extends Component {
         )
     }
 
+    handleClick = (event) => {
+        console.log(this.state);
+        // this.setState({
+        //     ...this.state, selectedTag: parseInt(event.target.value)
+        // })
+        this.props.dispatch({type: 'ADD_TAG', payload: this.state})
+    }
+
     handleSelectionChange = (event) => {
-        console.log('handleSelect:', event.target.value)
+        console.log('handleSelect:', parseInt(event.target.value))
         this.setState({
-            selectedTag: event.target.value
+            tags_id: event.target.value
         })
     }
 
@@ -62,7 +70,7 @@ class DisplayImage extends Component {
     // }
 
     nextImage = () => {
-        const newIndex = this.state.currentIndex + 1;
+        const newIndex = this.state.images_id + 1;
         // if (this.state.currentIndex = this.props.redux.images.length - 1) {
         //     this.setState({
         //         currentIndex: 0
@@ -70,13 +78,13 @@ class DisplayImage extends Component {
         // }
         // else {
         this.setState({
-            currentIndex: newIndex
+            images_id: newIndex
         })
         // this.loopImage();
     }
 
     previousImage = () => {
-        const newIndex = this.state.currentIndex - 1;
+        const newIndex = this.state.images_id - 1;
         // if (this.state.currentIndex = 0) {
         //     this.setState({
         //         currentIndex: this.props.redux.images.length - 1
@@ -84,7 +92,7 @@ class DisplayImage extends Component {
         // }
         // else {
         this.setState({
-            currentIndex: newIndex
+            images_id: newIndex
         })
         // }
         // this.loopImage();
@@ -109,13 +117,16 @@ class DisplayImage extends Component {
     renderImage = () => {
         // this.loopImage();
         return (
-            <img src={this.props.redux.images[this.state.currentIndex].path} className="display" alt={this.props.redux.images[this.state.currentIndex].name} />
+            <img 
+                src={this.props.redux.images[this.state.images_id].path} 
+            className="display" 
+                alt={this.props.redux.images[this.state.images_id].name} />
         );
     }
 
     renderTitle = () => {
         return (
-            this.props.redux.images[this.state.currentIndex].title
+            this.props.redux.images[this.state.images_id].title
         )
     }
 
@@ -123,7 +134,7 @@ class DisplayImage extends Component {
 
     render() {
         // const { images, currentImage } = this.state;
-        console.log('in DisplayImage render', this.state.currentIndex);
+        console.log('in DisplayImage render', this.state.images_id);
         console.log('redux:', this.props.redux);
         // return (
         // <div className="appImage">
@@ -170,7 +181,7 @@ class DisplayImage extends Component {
 
                 {/* ---------- TAGS ---------- */}
                 < div className="tagsApp" >
-                    <select value={this.state.selectedTag} onChange={this.handleSelectionChange}>
+                    <select onChange={this.handleSelectionChange}>
                         <option disabled value="0">Select Tag</option>
                         {/* <select value={this.state.tags_id} onChange={this.handleTagChange}> */}
                         {this.props.tags.map(tag => {
@@ -180,7 +191,7 @@ class DisplayImage extends Component {
                         })}
 
                     </select>
-                    <button>Apply Tags</button>
+                    <button onClick={this.handleClick}>Apply Tags</button>
                     <pre>{JSON.stringify(this.props.tags)}</pre>
                     <p>Tags Go Here</p>
                 </div >

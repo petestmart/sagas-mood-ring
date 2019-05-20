@@ -27,9 +27,10 @@ router.get('/tags', (req, res) => {
 });
 
 // POST tags on images in junction table images_tags
-router.post('/tags', (req, res) => {
+router.post('/addtag', (req, res) => {
     const newTag = req.body;
     let query = `INSERT INTO "images_tags" ("images_id", "tags_id") VALUES ($1, $2);`;
+    console.log('POST req.body:', req.body);
     pool.query(query, [newTag.images_id, newTag.tags_id])
         .then(() => {
             res.sendStatus(201)

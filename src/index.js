@@ -16,44 +16,55 @@ import axios from 'axios';
 // ---------- SAGAS ---------- //
 // Watcher
 function* rootSaga() {
+    yield takeEvery('ADD_TAG', postTag)
     yield takeEvery('FETCH_IMAGE', fetchImage)
     yield takeEvery('FETCH_TAGS', fetchTags)
     yield takeEvery('FETCH_IMAGES_TAGS', fetchImagesTags)
 } // end rootSaga
 
-// Fetches all image data from the server
+// Fetches all image data from the server (from DB images table)
 // Sends images to images reducer
 function* fetchImage() {
     try {
-        let imageResponse = yield axios.get('/image');
+        let imageResponse = yield axios.get('/api/images');
         yield put({ type: 'SET_IMAGES', payload: imageResponse.data })
     }
     catch (err) {
         console.log(err)
     }
-} // end Saga fetchImage
+} // End Saga fetchImage
 
 // Fetches all junction data images_tags from the server
 function* fetchImagesTags() {
     try {
-        let imagesTagsResponse = yield axios.get('/image/tags');
-        yield put({ type: 'SET_IMAGES_TAGS', payload: imagesTagsResponse.data})
+        let imagesTagsResponse = yield axios.get('/api/images');
+        yield put({ type: 'SET_IMAGES_TAGS', payload: imagesTagsResponse.data })
     }
     catch (err) {
         console.log('fetchImagesTags Saga:', err);
     }
-} // end fetchImagesTags
+} // End Saga fetchImagesTags
 
-// Fetches all tags data from the server
+// Fetches tags data from the server (from DB tags table)
 function* fetchTags() {
     try {
-        let tagsResponse = yield axios.get('/tags');
+        let tagsResponse = yield axios.get('/api/tags');
         yield put({ type: 'SET_TAGS', payload: tagsResponse.data })
     }
     catch (err) {
         console.log(err)
     }
-}
+} // End Saga fetchTags
+
+// POST current selected tagId & imageId to the server (then the juction table)
+function* postTag(action) {
+    try {
+        yield axios.post('/api/images/addtag', action.payload);
+        yield put({ type: 'FETCH_IMAGES_TAGS' })
+    } catch (err) {
+        console.log(err);
+    }
+} // End Saga PostTag
 
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
@@ -68,7 +79,7 @@ const images = (state = [], action) => {
         default:
             return state;
     }
-} // end reducer images
+} // End Reducer images
 
 // Used to store junction table data
 const imagesTags = (state = [], action) => {
@@ -78,7 +89,7 @@ const imagesTags = (state = [], action) => {
         default:
             return state;
     }
-} // end reducer imagesTags
+} // End Reducer imagesTags
 
 // Used to store the images tags (e.g. 'Inspirational', 'Calming', 'Energy', etc.)
 const tags = (state = [], action) => {
@@ -88,7 +99,7 @@ const tags = (state = [], action) => {
         default:
             return state;
     }
-} // end reducer tags
+} // End Reducer tags
 
 
 // ---------- STORE ---------- //
