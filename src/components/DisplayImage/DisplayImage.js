@@ -11,13 +11,17 @@ class DisplayImage extends Component {
         currentIndex: 0
     }
 
+    componentDidMount() {
+        // this.loopImage();
+    }
+
     // loopImage = () => {
-    //     if (this.state.currentIndex > this.props.redux.images.length - 1) {
+    //     if (this.state.currentIndex = this.props.redux.images.length - 1) {
     //         this.setState({
     //             currentIndex: 0
     //         })
     //     }
-    //     if (this.state.currentIndex < 0) {
+    //     if (this.state.currentIndex = 0) {
     //         this.setState({
     //             currentIndex: this.props.redux.images.length - 1
     //         })
@@ -115,7 +119,7 @@ class DisplayImage extends Component {
         // return (
         // <div className="appImage">
         // <pre>{JSON.stringify(this.props.redux.images)}</pre>
-        console.log("image 0 path is:", this.props.redux.images[0]);
+        // console.log("image 0 path is:", this.props.redux.images[0]);
         return (
             <div>
                 <h2>{this.conditionalTitle()}</h2>

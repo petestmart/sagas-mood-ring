@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 5000;
 const imageRouter = require('./routes/image.router');
+// const imageTagsRouter = require('./routes/image.router')
 const tagsRouter = require('./routes/tags.router');
 
 /** ---------- MIDDLEWARE ---------- **/
@@ -11,6 +12,7 @@ app.use(express.static('build'));
 
 /** ---------- ROUTES ---------- **/
 app.use('/image', imageRouter);
+// app.use('/image/tags', imageTagsRouter)
 app.use('/tags', tagsRouter);
 
 /** ---------- START SERVER ---------- **/

@@ -18,6 +18,7 @@ import axios from 'axios';
 function* rootSaga() {
     yield takeEvery('FETCH_IMAGE', fetchImage)
     yield takeEvery('FETCH_TAGS', fetchTags)
+    yield takeEvery('FETCH_IMAGES_TAGS', fetchImagesTags)
 } // end rootSaga
 
 // Fetches all image data from the server
@@ -31,6 +32,17 @@ function* fetchImage() {
         console.log(err)
     }
 } // end Saga fetchImage
+
+// Fetches all junction data images_tags from the server
+function* fetchImagesTags() {
+    try {
+        let imagesTagsResponse = yield axios.get('/image/tags');
+        yield put({ type: 'SET_IMAGES_TAGS', payload: imagesTagsResponse.data})
+    }
+    catch (err) {
+        console.log('fetchImagesTags Saga:', err);
+    }
+} // end fetchImagesTags
 
 // Fetches all tags data from the server
 function* fetchTags() {
@@ -58,6 +70,16 @@ const images = (state = [], action) => {
     }
 } // end reducer images
 
+// Used to store junction table data
+const imagesTags = (state = [], action) => {
+    switch (action.type) {
+        case 'SET_IMAGES_TAGS':
+            return action.payload;
+        default:
+            return state;
+    }
+} // end reducer imagesTags
+
 // Used to store the images tags (e.g. 'Inspirational', 'Calming', 'Energy', etc.)
 const tags = (state = [], action) => {
     switch (action.type) {
@@ -75,6 +97,7 @@ const storeInstance = createStore(
     combineReducers({
         images,
         tags,
+        imagesTags
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),
